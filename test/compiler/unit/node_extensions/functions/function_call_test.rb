@@ -2,8 +2,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class FunctionCallTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   ##################
   # call()

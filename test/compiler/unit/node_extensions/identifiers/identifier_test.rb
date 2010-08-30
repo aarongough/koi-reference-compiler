@@ -2,8 +2,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class IdentifierTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile identifier with Assignment as parent to SET_LOCAL" do
     parent = Assignment.new("test = 2", 0...8)

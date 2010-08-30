@@ -1,6 +1,4 @@
-include KoiVM
-
-module MinKoi
+module KoiReferenceParser
 
   class Assignment
     def compile

@@ -1,6 +1,4 @@
-include KoiVM
-
-module MinKoi
+module KoiReferenceCompiler
 
   class AdditiveExpression
     def compile

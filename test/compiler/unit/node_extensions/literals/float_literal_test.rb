@@ -2,8 +2,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class IntegerLiteralTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile FloatLiteral" do
     tree = FloatLiteral.new("99.00019", 0...8)

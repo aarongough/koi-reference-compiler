@@ -2,8 +2,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class NilLiteralTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile NilLiteral" do
     tree = NilLiteral.new("nil", 0...3)

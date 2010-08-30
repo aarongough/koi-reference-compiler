@@ -1,11 +1,12 @@
-class MinKoiCompiler
+module KoiReferenceCompiler
 
-  require 'koi-vm'
-  include KoiVM
-  
-  def self.compile(tree)
-    bytecode = tree.compile
-    return bytecode
+  class Compiler
+    
+    def self.compile(tree)
+      bytecode = tree.compile
+      return bytecode
+    end
+    
   end
   
 end
