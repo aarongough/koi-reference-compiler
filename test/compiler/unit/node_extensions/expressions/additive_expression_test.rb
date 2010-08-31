@@ -2,16 +2,14 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class AdditiveExpressionTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile AdditiveExpression" do
-    elements = [
-      IntegerLiteral.new("test = 1 + 2", 7...8),
-      AdditionOperator.new("test = 1 + 2", 9...10),
-      IntegerLiteral.new("test = 1 + 2", 11..12)
-    ]
-    tree = AdditiveExpression.new("test = 1 + 2", 7...12, elements)
+    tree = AdditiveExpression.new("1 + 2", 0, [
+      IntegerLiteral.new("1", 0),
+      AdditionOperator.new("+", 2),
+      IntegerLiteral.new("2", 4)
+    ])
     bytecode = tree.compile
     assert_equal [
       PUSH_INT, 1,

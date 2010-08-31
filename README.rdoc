@@ -1,80 +1,73 @@
-= MinKoi
+= koi-reference-compiler
 
-MinKoi is a small programming language that is designed to be easy to use, easy to understand and easy to implement. 
+This is the reference compiler implementation for the programming language {Koi}[http://github.com/aarongough/koi]. This is a very simple compiler that does no optimization, and because of this remains very easy to understand. The compiler is implemented using the {delegation pattern}[http://en.wikipedia.org/wiki/Delegation_pattern] in that a tree representing the program is built up out of subclasses of the SyntaxNode class, each of which knows how to compile it's own specific instruction and nothing more.
 
 === Example
 
-This is an old-school 'Blast Off!' program written in MinKoi:
+Take, for example, a very simple (and incorrect!) program that just pushes an integer onto the stack. The {Abstract Syntax Tree (AST)}[http://en.wikipedia.org/wiki/Abstract_syntax_tree] for such a program might look like this:
 
-  countdown = function( count )
-    print( to_string( count ))
-    print( ", " )
-    if( count == 0 )
-      return()
+  <IntegerLiteral "1">
+  
+In order to compile this program we might create an instance method on the IntegerLiteral class that looks like this:
+
+  class IntegerLiteral < SyntaxNode
+    def compile
+      return [PUSH_INT, self.text_value.to_i]
     end
-    count = count - 1
-    call( countdown, count )
   end
   
-  call( countdown, 10 )
+This method simply produces the opcode PUSH_INT and provides the integer value of the text_value of the syntax node, in this case "1". This is obviously a minimal case, but it demonstrates the principal in a straight-forward way.
+
+=== Abstract Syntax Tree Format
+
+The compiler expects the AST to be passed to it in the form of a nested hash which represents the program structure. The AST hash for the program:
+
+  test = 1
   
-  print( "Blast Off!" )
+would look like so:
+
+  {
+    :name => "Statement",
+    :text_value => "test = 1",
+    :offset => 0,
+    :elements => [
+      {
+        :name => "AssignmentOperator",
+        :text_value => "=",
+        :offset => 5,
+        :elements => nil
+      },
+      {
+        :name => "Expression",
+        :text_value => "1",
+        :offset => 7,
+        :elements => [
+          {
+            :name => "IntegerLiteral",
+            :text_value => "1",
+            :offset => 7,
+            :elements => nil
+          }
+        ]
+      }
+    ]
+  }
   
-  #=> 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, Blast Off!
 
+=== Installation
 
-=== More Info
+This compiler is normally installed as part of Koi's default toolchain. However if you would like to install it on it's own you can do so by installing the gem like so:
 
-MinKoi was conceived as an intermediate language in which it would be possible to implement higher-level languages and their object models, to this end flexibility is one of it's primary goals.
+  gem install koi-reference-compiler
 
-MinKoi is an imperative, dynamic, weakly-typed language with first-class functions. MinKoi's syntax is influenced by JavaScript, Lua and Ruby, but works very hard to be unambiguous so that it is easy to write parsers for (in stark contrast with Ruby).
+=== Usage
 
-=== Goals
-
-* Ease of use
-* Ease of implementation
-* Ease of modification
-* Flexibility 
-* Speed
-
-=== Data types
-
-MinKoi features a full set of basic data types including:
-
-* Nil
-* Boolean
-* Integer
-* Float
-* String
-* Function
-
-(array and hash coming soon!)
-
-=== Flow control
-
-MinKoi currently only implements a minimal set of flow control operators:
-
-  if( expression )
-    call( do_work )
-  endif
+  require 'rubygems'
+  require 'koi-reference-compiler'
   
-  unless( expression )
-    call( do_other_work )
-  endunless
+  include KoiReferenceCompiler
   
-=== Built-in functions
-
-print( string )::   Writes a string to STDOUT.
-gets()::    Fetches a newline delimited string from STDIN.
-call( identifier [, parameter])::   Calls the function that is stored in 'identifier'.
-tailcall( identifier[, parameter])::  Performs a 'tailcall' to the function stored in 'identifier'. This type of call is used when recursing heavily to improve performance and to facilitate the use of functions as iterators.
-return( [value] ):: Return a value from a function.
-to_string( value/identifier ):: Converts the given value to a representative string.
-type_of( value ):: Returns a string representing the type of the value given, eg: "integer".
-
-=== Reserved words
-
-if, endif, unless, endunless, function, endfunction, call, tailcall, print, gets, return, to_string, type_of, nil, true, false
+  bytecode = Compiler.compile( hash_representing_abstract_syntax_tree )
 
 === Author & Credits
 

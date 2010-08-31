@@ -2,17 +2,15 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class KeyValueTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile KeyValue" do
-    input = "1 => 2"
-    tree = KeyValue.new(input, 0...6, [
-      Expression.new(input, 0...1, [
-        IntegerLiteral.new(input, 0...1)
+    tree = KeyValue.new("1 => 2", 0...6, [
+      Expression.new("1", 0...1, [
+        IntegerLiteral.new("1", 0...1)
       ]),
-      Expression.new(input, 5...6, [
-        IntegerLiteral.new(input, 5...6)
+      Expression.new("2", 5...6, [
+        IntegerLiteral.new("2", 5...6)
       ])
     ])
     bytecode = tree.compile

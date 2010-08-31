@@ -2,11 +2,10 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class SubtractionOperatorTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile SubtractionOperator" do
-    tree = SubtractionOperator.new("-", 0...1)
+    tree = SubtractionOperator.new("-", 0)
     bytecode = tree.compile
     assert_equal [SUBTRACT], bytecode
   end

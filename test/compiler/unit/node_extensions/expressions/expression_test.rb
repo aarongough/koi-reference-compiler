@@ -2,14 +2,12 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class ExpressionTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile Expression" do
-    elements = [
-      IntegerLiteral.new("1", 0...1)
-    ]
-    tree = Expression.new("2", 0...1, elements)
+    tree = Expression.new("1", 0, [
+      IntegerLiteral.new("1", 0)
+    ])
     bytecode = tree.compile
     assert_equal [
       PUSH_INT, 1

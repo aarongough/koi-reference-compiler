@@ -2,11 +2,10 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class GreaterThanOperatorTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile GreaterThanOperator" do
-    tree = GreaterThanOperator.new(">", 0...1)
+    tree = GreaterThanOperator.new(">", 0)
     bytecode = tree.compile
     assert_equal [GREATER_THAN], bytecode
   end

@@ -2,26 +2,25 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class UnlessTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile Unless" do
     input = "unless( 1 == 1 )\n arg = 1\n end"
-    tree = Unless.new(input, 0...32, [
-      Expression.new(input, 8...14, [
-        ComparativeExpression.new(input, 8...14, [
-          IntegerLiteral.new(input, 8...9),
-          EqualityOperator.new(input, 10...12),
-          IntegerLiteral.new(input, 13...14)
+    tree = Unless.new("unless( 1 == 1 )\n arg = 1\n end", 0, [
+      Expression.new("1 == 1", 8, [
+        ComparativeExpression.new("1 == 1", 8, [
+          IntegerLiteral.new("1", 8),
+          EqualityOperator.new("==", 10),
+          IntegerLiteral.new("1", 13)
         ])
       ]),
-      Block.new(input, 17...26,[
-        Statement.new(input, 17...26, [
-          Assignment.new(input, 18..24, [
-            Identifier.new(input, 18...21),
-            AssignmentOperator.new(input, 22...23),
-            Expression.new(input, 24...25, [
-              IntegerLiteral.new(input, 24...25)
+      Block.new("arg = 1\n", 17,[
+        Statement.new("arg = 1", 17, [
+          Assignment.new("arg = 1", 18, [
+            Identifier.new("arg", 18),
+            AssignmentOperator.new("=", 22),
+            Expression.new("1", 24, [
+              IntegerLiteral.new("1", 24)
             ])
           ])
         ])

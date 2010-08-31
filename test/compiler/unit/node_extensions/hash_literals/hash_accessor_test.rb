@@ -2,14 +2,12 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class HashAccessorTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile HashAccessor to GET_KEY" do
-    input = "[1]"
-    tree =  HashAccessor.new(input, 0...3, [
-      Expression.new(input, 1...2, [
-        IntegerLiteral.new(input, 1...2)
+    tree =  HashAccessor.new("[1]", 0, [
+      Expression.new("1", 1, [
+        IntegerLiteral.new("1", 1)
       ])
     ])
     bytecode = tree.compile_get
@@ -20,10 +18,9 @@ class HashAccessorTest < Test::Unit::TestCase
   end
   
   test "should compile HashAccessor to SET_KEY" do
-    input = "[1]"
-    tree =  HashAccessor.new(input, 0...3, [
-      Expression.new(input, 1...2, [
-        IntegerLiteral.new(input, 1...2)
+    tree =  HashAccessor.new("[1]", 0, [
+      Expression.new("1", 1, [
+        IntegerLiteral.new("1", 1)
       ])
     ])
     bytecode = tree.compile_set

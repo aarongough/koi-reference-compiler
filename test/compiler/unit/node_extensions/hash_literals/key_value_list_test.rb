@@ -2,26 +2,24 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..
 
 class KeyValueListTest < Test::Unit::TestCase
 
-  include MinKoi
-  include KoiVM
+  include KoiReferenceCompiler
   
   test "should compile KeyValueList" do
-    input = "1 => 2, 2 => 3"
-    tree = KeyValueList.new(input, 0...14, [
-      KeyValue.new(input, 0...6, [
-        Expression.new(input, 0...1, [
-          IntegerLiteral.new(input, 0...1)
+    tree = KeyValueList.new("1 => 2, 2 => 3", 0, [
+      KeyValue.new("1 => 2", 0, [
+        Expression.new("1", 0, [
+          IntegerLiteral.new("1", 0)
         ]),
-        Expression.new(input, 5...6, [
-          IntegerLiteral.new(input, 5...6)
+        Expression.new("2", 5, [
+          IntegerLiteral.new("2", 5)
         ])
       ]),
-      KeyValue.new(input, 8...14, [
-        Expression.new(input, 8...8, [
-          IntegerLiteral.new(input, 8...9)
+      KeyValue.new("2 => 3", 8, [
+        Expression.new("2", 8, [
+          IntegerLiteral.new("2", 8)
         ]),
-        Expression.new(input, 13...14, [
-          IntegerLiteral.new(input, 13...14)
+        Expression.new("3", 13, [
+          IntegerLiteral.new("3", 13)
         ])
       ])
     ])
