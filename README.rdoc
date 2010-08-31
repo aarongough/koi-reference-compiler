@@ -1,10 +1,10 @@
 = koi-reference-compiler
 
-This is the reference parser implementation for the programming language {Koi}[http://github.com/aarongough/koi]. This is a very simple but naive compiler that does no optimization, but because of this remains very easy to understand. The compiler is implemented using the {delegation pattern}[http://en.wikipedia.org/wiki/Delegation_pattern] in that a tree representing the program is built up out of subclasses of the SyntaxNode class, each of which knows how to compile it's own specific instruction and nothing more.
+This is the reference compiler implementation for the programming language {Koi}[http://github.com/aarongough/koi]. This is a very simple compiler that does no optimization, but because of this remains very easy to understand. The compiler is implemented using the {delegation pattern}[http://en.wikipedia.org/wiki/Delegation_pattern] in that a tree representing the program is built up out of subclasses of the SyntaxNode class, each of which knows how to compile it's own specific instruction and nothing more.
 
 === Example
 
-A very simple program may just push an integer onto the stack and that is all. The {Abstract Syntax Tree (AST)}[http://en.wikipedia.org/wiki/Abstract_syntax_tree] for such a program might look like this:
+Take, for example, a very simple (and incorrect!) program that just pushes an integer onto the stack. The {Abstract Syntax Tree (AST)}[http://en.wikipedia.org/wiki/Abstract_syntax_tree] for such a program might look like this:
 
   <IntegerLiteral "1">
   
@@ -24,7 +24,7 @@ The compiler expects the AST to be passed to it in the form of a nested hash whi
 
   test = 1
   
-might look like so:
+would look like so:
 
   {
     :name => "Statement",
