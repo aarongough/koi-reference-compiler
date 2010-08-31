@@ -2,7 +2,8 @@ module KoiReferenceCompiler
 
   class Compiler
     
-    def self.compile(tree)
+    def self.compile(ast_hash)
+      tree = self.load_ast_hash(ast_hash)
       bytecode = tree.compile
       return bytecode
     end
