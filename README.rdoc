@@ -1,6 +1,6 @@
 = koi-reference-compiler
 
-This is the reference compiler implementation for the programming language {Koi}[http://github.com/aarongough/koi]. This is a very simple compiler that does no optimization, but because of this remains very easy to understand. The compiler is implemented using the {delegation pattern}[http://en.wikipedia.org/wiki/Delegation_pattern] in that a tree representing the program is built up out of subclasses of the SyntaxNode class, each of which knows how to compile it's own specific instruction and nothing more.
+This is the reference compiler implementation for the programming language {Koi}[http://github.com/aarongough/koi]. This is a very simple compiler that does no optimization, and because of this remains very easy to understand. The compiler is implemented using the {delegation pattern}[http://en.wikipedia.org/wiki/Delegation_pattern] in that a tree representing the program is built up out of subclasses of the SyntaxNode class, each of which knows how to compile it's own specific instruction and nothing more.
 
 === Example
 
@@ -16,7 +16,7 @@ In order to compile this program we might create an instance method on the Integ
     end
   end
   
-This is obviously a minimal case, but it demonstrates the principal in a straight-forward way.
+This method simply produces the opcode PUSH_INT and provides the integer value of the text_value of the syntax node, in this case "1". This is obviously a minimal case, but it demonstrates the principal in a straight-forward way.
 
 === Abstract Syntax Tree Format
 
