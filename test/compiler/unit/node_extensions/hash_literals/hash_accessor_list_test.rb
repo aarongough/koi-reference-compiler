@@ -5,19 +5,18 @@ class HashAccessorListTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile lvalue HashAccessorList to SET_KEY" do
-    input = "test[1] = 1"
-    tree = HashAssignment.new(input, 0...11, [
-      Identifier.new(input, 0...4),
-      HashAccessorList.new(input, 4...7, [
-        HashAccessor.new(input, 4...7, [
-          Expression.new(input, 5...6, [
-            IntegerLiteral.new(input, 5...6)
+    tree = HashAssignment.new("test[1] = 1", 0, [
+      Identifier.new("test", 0),
+      HashAccessorList.new("[1]", 4, [
+        HashAccessor.new("[1]", 4, [
+          Expression.new("1", 5, [
+            IntegerLiteral.new("1", 5)
           ])
         ])
       ]),
-      AssignmentOperator.new(input, 8...9),
-      Expression.new(input, 10...11, [
-        IntegerLiteral.new(input, 10...11)
+      AssignmentOperator.new("=", 8),
+      Expression.new("1", 10, [
+        IntegerLiteral.new("1", 10)
       ])
     ])
     bytecode = tree.compile
@@ -31,24 +30,23 @@ class HashAccessorListTest < Test::Unit::TestCase
   end
   
   test "should compile lvalue HashAccessorList to GET_KEY, SET_KEY" do
-    input = "test[1][1] = 1"
-    tree = HashAssignment.new(input, 0...14, [
-      Identifier.new(input, 0...4),
-      HashAccessorList.new(input, 4...7, [
-        HashAccessor.new(input, 4...7, [
-          Expression.new(input, 5...6, [
-            IntegerLiteral.new(input, 5...6)
+    tree = HashAssignment.new("test[1][1] = 1", 0, [
+      Identifier.new("test", 0),
+      HashAccessorList.new("[1][1]", 4, [
+        HashAccessor.new("[1]", 4, [
+          Expression.new("1", 5, [
+            IntegerLiteral.new("1", 5)
           ])
         ]),
-        HashAccessor.new(input, 7...10, [
-          Expression.new(input, 8...9, [
-            IntegerLiteral.new(input, 8...9)
+        HashAccessor.new("[1]", 7, [
+          Expression.new("1", 8, [
+            IntegerLiteral.new("1", 8)
           ])
         ])
       ]),
-      AssignmentOperator.new(input, 11...12),
-      Expression.new(input, 13...14, [
-        IntegerLiteral.new(input, 13...14)
+      AssignmentOperator.new("=", 11),
+      Expression.new("1", 13, [
+        IntegerLiteral.new("1", 13)
       ])
     ])
     bytecode = tree.compile
@@ -64,13 +62,12 @@ class HashAccessorListTest < Test::Unit::TestCase
   end
   
   test "should compile rvalue HashAccess to GET_KEY" do
-    input = "test[1]"
-    tree = HashAccess.new(input, 0...7, [
-      Identifier.new(input, 0...4),
-      HashAccessorList.new(input, 4...7, [
-        HashAccessor.new(input, 4...7, [
-          Expression.new(input, 5...6, [
-            IntegerLiteral.new(input, 5...6)
+    tree = HashAccess.new("test[1]", 0, [
+      Identifier.new("test", 0),
+      HashAccessorList.new("[1]", 4, [
+        HashAccessor.new("[1]", 4, [
+          Expression.new("1", 5, [
+            IntegerLiteral.new("1", 5)
           ])
         ])
       ])

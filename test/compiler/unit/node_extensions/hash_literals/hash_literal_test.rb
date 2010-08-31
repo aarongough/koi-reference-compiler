@@ -5,15 +5,14 @@ class HashLiteralTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile HashLiteral" do
-    input = "{1 => 2}"
-    tree = HashLiteral.new(input, 0...8, [
-      KeyValueList.new(input, 1...7, [
-        KeyValue.new(input, 1...7, [
-          Expression.new(input, 1...2, [
-            IntegerLiteral.new(input, 1...2)
+    tree = HashLiteral.new("{1 => 2}", 0, [
+      KeyValueList.new("1 => 2", 1, [
+        KeyValue.new("1 => 2", 1, [
+          Expression.new("1", 1, [
+            IntegerLiteral.new("1", 1)
           ]),
-          Expression.new(input, 6...7, [
-            IntegerLiteral.new(input, 6...67)
+          Expression.new("2", 6, [
+            IntegerLiteral.new("2", 6)
           ])
         ])
       ])

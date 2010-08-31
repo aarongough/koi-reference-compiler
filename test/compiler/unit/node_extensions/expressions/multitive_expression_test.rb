@@ -5,12 +5,11 @@ class MultitiveExpressionTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile MultitiveExpression" do
-    elements = [
-      IntegerLiteral.new("test = 1 * 2", 7...8),
-      MultiplicationOperator.new("test = 1 * 2", 9...10),
-      IntegerLiteral.new("test = 1 * 2", 11..12)
-    ]
-    tree = MultitiveExpression.new("test = 1 * 2", 7...12, elements)
+    tree = ComparativeExpression.new("1 * 2", 0, [
+      IntegerLiteral.new("1", 0),
+      MultiplicationOperator.new("*", 2),
+      IntegerLiteral.new("2", 4)
+    ])
     bytecode = tree.compile
     assert_equal [
       PUSH_INT, 1,

@@ -5,28 +5,26 @@ class BlockTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile Block" do
-    input = "test = 1\ntest2 = 2"
-    elements = [
-      Statement.new(input, 0...8, [
-        Assignment.new(input, 0...8, [
-          Identifier.new(input, 0...4),
-          AssignmentOperator.new(input, 5...6),
-          Expression.new(input, 7...8, [
-            IntegerLiteral.new(input, 7...8)
+    tree = Block.new("test = 1\ntest2 = 2", 0, [
+      Statement.new("test = 1\n", 0, [
+        Assignment.new("test = 1", 0, [
+          Identifier.new("test", 0),
+          AssignmentOperator.new("=", 5),
+          Expression.new("1", 7, [
+            IntegerLiteral.new("1", 7)
           ])
         ])
       ]),
-      Statement.new(input, 10...19, [
-        Assignment.new(input, 10...19, [
-          Identifier.new(input, 9...14),
-          AssignmentOperator.new(input, 15...16),
-          Expression.new(input, 17...18, [
-            IntegerLiteral.new(input, 17...18)
+      Statement.new("test2 = 2", 10, [
+        Assignment.new("test2 = 2", 10, [
+          Identifier.new("test2", 9),
+          AssignmentOperator.new("=", 15),
+          Expression.new("2", 17, [
+            IntegerLiteral.new("2", 17)
           ])
         ])
       ])
-    ]
-    tree =  Block.new(input, 0...19, elements)
+    ])
     bytecode = tree.compile
     assert_equal [
       PUSH_INT, 1, 

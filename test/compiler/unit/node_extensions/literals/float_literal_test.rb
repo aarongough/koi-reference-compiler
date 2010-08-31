@@ -5,7 +5,7 @@ class IntegerLiteralTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile FloatLiteral" do
-    tree = FloatLiteral.new("99.00019", 0...8)
+    tree = FloatLiteral.new("99.00019", 0)
     bytecode = tree.compile
     assert_equal [PUSH_FLOAT, 99.00019], bytecode
   end

@@ -5,7 +5,7 @@ class NilLiteralTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile NilLiteral" do
-    tree = NilLiteral.new("nil", 0...3)
+    tree = NilLiteral.new("nil", 0)
     bytecode = tree.compile
     assert_equal [PUSH_NIL], bytecode
   end

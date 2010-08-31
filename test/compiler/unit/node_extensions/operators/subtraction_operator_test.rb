@@ -5,7 +5,7 @@ class SubtractionOperatorTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile SubtractionOperator" do
-    tree = SubtractionOperator.new("-", 0...1)
+    tree = SubtractionOperator.new("-", 0)
     bytecode = tree.compile
     assert_equal [SUBTRACT], bytecode
   end

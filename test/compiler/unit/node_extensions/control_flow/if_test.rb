@@ -5,22 +5,21 @@ class IfTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile If" do
-    input = "if( 1 == 1 )\n arg = 1\n end"
-    tree = If.new(input, 0...28, [
-      Expression.new(input, 4...10, [
-        ComparativeExpression.new(input, 4...10, [
-          IntegerLiteral.new(input, 4...5),
-          EqualityOperator.new(input, 6...8),
-          IntegerLiteral.new(input, 9...10)
+    tree = If.new("if( 1 == 1 )\n arg = 1\n end", 0, [
+      Expression.new("1 == 1", 4, [
+        ComparativeExpression.new("1 == 1", 4, [
+          IntegerLiteral.new("1", 4),
+          EqualityOperator.new("==", 6),
+          IntegerLiteral.new("1", 9)
         ])
       ]),
-      Block.new(input, 13...22,[
-        Statement.new(input, 13...22, [
-          Assignment.new(input, 14..20, [
-            Identifier.new(input, 14...17),
-            AssignmentOperator.new(input, 18...19),
-            Expression.new(input, 20...21, [
-              IntegerLiteral.new(input, 20...21)
+      Block.new("arg = 1\n", 13,[
+        Statement.new("arg = 1", 13, [
+          Assignment.new("arg = 1", 14, [
+            Identifier.new("arg", 14),
+            AssignmentOperator.new("=", 18),
+            Expression.new("1", 20, [
+              IntegerLiteral.new("1", 20)
             ])
           ])
         ])

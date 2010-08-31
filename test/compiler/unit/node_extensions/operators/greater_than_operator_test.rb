@@ -5,7 +5,7 @@ class GreaterThanOperatorTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile GreaterThanOperator" do
-    tree = GreaterThanOperator.new(">", 0...1)
+    tree = GreaterThanOperator.new(">", 0)
     bytecode = tree.compile
     assert_equal [GREATER_THAN], bytecode
   end

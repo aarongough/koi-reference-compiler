@@ -5,7 +5,7 @@ class StringLiteralTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile StringLiteral" do
-    tree = StringLiteral.new('"test"', 0...6)
+    tree = StringLiteral.new('"test"', 0)
     bytecode = tree.compile
     assert_equal [PUSH_STRING, 'test'], bytecode
   end

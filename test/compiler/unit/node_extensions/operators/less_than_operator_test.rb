@@ -5,7 +5,7 @@ class LessThanOperatorTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile LessThanOperator" do
-    tree = LessThanOperator.new("<", 0...1)
+    tree = LessThanOperator.new("<", 0)
     bytecode = tree.compile
     assert_equal [LESS_THAN], bytecode
   end

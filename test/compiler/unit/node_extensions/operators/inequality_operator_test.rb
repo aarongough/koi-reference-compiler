@@ -5,7 +5,7 @@ class InqualityOperatorTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile InqualityOperator" do
-    tree = InequalityOperator.new("!=", 0...2)
+    tree = InequalityOperator.new("!=", 0)
     bytecode = tree.compile
     assert_equal [EQUAL, INVERT], bytecode
   end

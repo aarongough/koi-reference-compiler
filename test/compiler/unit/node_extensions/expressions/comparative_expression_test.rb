@@ -5,12 +5,11 @@ class ComparativeExpressionTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile ComparativeExpression" do
-    elements = [
-      IntegerLiteral.new("test = 1 == 2", 7...8),
-      EqualityOperator.new("test = 1 == 2", 9...11),
-      IntegerLiteral.new("test = 1 == 2", 12..13)
-    ]
-    tree = ComparativeExpression.new("test = 1 == 2", 7...13, elements)
+    tree = ComparativeExpression.new("1 == 2", 0, [
+      IntegerLiteral.new("1", 0),
+      EqualityOperator.new("==", 2),
+      IntegerLiteral.new("2", 5)
+    ])
     bytecode = tree.compile
     assert_equal [
       PUSH_INT, 1,

@@ -5,15 +5,13 @@ class AssignmentTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile Assignment" do
-    input = "test = 1"
-    elements = [
-      Identifier.new(input, 0...4),
-      AssignmentOperator.new(input, 5...6),
-      Expression.new(input, 7...8, [
-        IntegerLiteral.new(input, 7...8)
+    tree = Assignment.new("test = 1", 0, [
+      Identifier.new("test", 0),
+      AssignmentOperator.new("=", 5),
+      Expression.new("1", 7, [
+        IntegerLiteral.new("1", 7)
       ])
-    ]
-    tree = Assignment.new(input, 0...8, elements)
+    ])
     bytecode = tree.compile
     assert_equal [
       PUSH_INT, 1, 

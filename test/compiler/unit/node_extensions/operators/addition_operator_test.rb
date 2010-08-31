@@ -5,7 +5,7 @@ class AdditionOperatorTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile AdditionOperator" do
-    tree = AdditionOperator.new("+", 0...1)
+    tree = AdditionOperator.new("+", 0)
     bytecode = tree.compile
     assert_equal [ADD], bytecode
   end

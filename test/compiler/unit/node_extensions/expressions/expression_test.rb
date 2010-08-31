@@ -5,10 +5,9 @@ class ExpressionTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile Expression" do
-    elements = [
-      IntegerLiteral.new("1", 0...1)
-    ]
-    tree = Expression.new("2", 0...1, elements)
+    tree = Expression.new("1", 0, [
+      IntegerLiteral.new("1", 0)
+    ])
     bytecode = tree.compile
     assert_equal [
       PUSH_INT, 1

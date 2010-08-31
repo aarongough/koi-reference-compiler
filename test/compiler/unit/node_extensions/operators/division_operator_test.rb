@@ -5,7 +5,7 @@ class DivisionOperatorTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile DivisionnOperator" do
-    tree = DivisionOperator.new("/", 0...1)
+    tree = DivisionOperator.new("/", 0)
     bytecode = tree.compile
     assert_equal [DIVIDE], bytecode
   end

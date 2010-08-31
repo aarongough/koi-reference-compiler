@@ -5,7 +5,7 @@ class EqualityOperatorTest < Test::Unit::TestCase
   include KoiReferenceCompiler
   
   test "should compile EqualityOperator" do
-    tree = EqualityOperator.new("==", 0...2)
+    tree = EqualityOperator.new("==", 0)
     bytecode = tree.compile
     assert_equal [EQUAL], bytecode
   end
