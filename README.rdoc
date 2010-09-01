@@ -27,32 +27,55 @@ The compiler expects the AST to be passed to it in the form of a nested hash whi
 would look like so:
 
   {
-    :name => "Statement",
+    :name => "Block",
     :text_value => "test = 1",
     :offset => 0,
     :elements => [
       {
-        :name => "AssignmentOperator",
-        :text_value => "=",
-        :offset => 5,
-        :elements => nil
-      },
-      {
-        :name => "Expression",
-        :text_value => "1",
-        :offset => 7,
+        :name => "Statement",
+        :text_value => "test = 1",
+        :offset => 0,
         :elements => [
           {
-            :name => "IntegerLiteral",
-            :text_value => "1",
-            :offset => 7,
-            :elements => nil
+            :name => "Assignment",
+            :text_value => "test = 1",
+            :offset => 0,
+            :elements => [
+              {
+                :name => "Identifier",
+                :text_value => "test",
+                :offset => 0,
+                :elements => nil
+              },
+              {
+                :name => "AssignmentOperator",
+                :text_value => "+",
+                :offset => 5,
+                :elements => nil
+              },
+              {
+                :name => "Expression",
+                :text_value => "1",
+                :offset => 7,
+                :elements => [
+                  {
+                    :name => "IntegerLiteral",
+                    :text_value => "1",
+                    :offset => 7,
+                    :elements => nil
+                  }
+                ]
+              },
+            ]
           }
         ]
       }
     ]
   }
   
+=== Compilation Target
+  
+This compiler produces opcodes for KoiVM virtual machines. For the reference implementation of a Koi Virtual Machine please have a look at: {koi-vm-ruby}[http://github.com/aarongough/koi-vm-ruby]
 
 === Installation
 
