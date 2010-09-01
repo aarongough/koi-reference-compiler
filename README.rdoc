@@ -65,7 +65,7 @@ would look like so:
                     :elements => nil
                   }
                 ]
-              },
+              }
             ]
           }
         ]
