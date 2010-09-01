@@ -9,9 +9,11 @@ module KoiReferenceCompiler
       @elements = elements
       @offset = offset
       @text_value = text_value
-      elements.each do |element|
-        element.parent = self
-      end unless(elements.nil?)
+      unless( elements.nil? )
+        elements.each do |element|
+          element.parent = self
+        end
+      end
     end
   end
   
